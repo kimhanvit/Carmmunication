@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 import speech_recognition as sr
 from PIL import Image
 
@@ -33,7 +34,7 @@ def read_voice():
             return print("구글 오류 : {}".format(re))
 
 def display(img_name):
-    im = Image.open(f'D:/STT practice/{img_name}') # 이미지 불러오기
+    im = Image.open(f'D:/STT practice/source/{img_name}') # 이미지 불러오기
     return im.show()
 
 while True:
