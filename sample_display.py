@@ -20,13 +20,11 @@ JSON = '''
 def read_voice():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        # print("마이크를 사용하여 듣기 시작!")
         r.adjust_for_ambient_noise(source) # source threshold 조정
-        audio = r.listen(source)
+        audio = r.listen(source, timeout=3)
         try:
             said = r.recognize_google_cloud(audio, language="ko-KR", credentials_json= JSON)
-            # print("구글 인식 : {}".format(said))
-            # print(type(said))
+
             return said
         except sr.UnknownValueError:
             return print("구글 인식 불가")
@@ -34,19 +32,36 @@ def read_voice():
             return print("구글 오류 : {}".format(re))
 
 def display(img_name):
-    im = Image.open(f'D:/STT practice/source/{img_name}') # 이미지 불러오기
+    im = Image.open(f'D:/STT practice/source/{img_name}')
     return im.show()
 
 while True:
     print("음성인식을 시작합니다.")
-    voice = read_voice()
-    hotwords = ['고마워 ', '미안해 ','조심해 ']
-    img_list = ['thankyou.JPG', 'sorry.JPG', 'warning.JPG']
-    print(voice)
-    # print(type(voice))
 
-    if voice in hotwords :
-        display(img_list[hotwords.index(voice)])
+    voice = read_voice()
+    
+    hotwords_1 = ['고마워 ', '감사합니다 ', '감사 ', '땡큐 ', '고마워요 ']
+    hotwords_2 = ['미안해 ', '죄송합니다 ', '죄송 ', '미안합니다 ', '미안 ', '쏘리 ']
+    hotwords_3 = ['조심해 ', '조심 ' , '조심하세요 ']
+    hotwords_4 = ['먼저갈게요 ', '지나가 ', '지나갈게요 ', '양보좀 ', '양보 ',' 양보해줘 ', '지나갈래 ', '먼저갈래 ', '차선변경 ','차선이동 ', '차선 ']
+    hotwords_5 = ['비상등 ', '비상 ', '응급 ', '응급상황 ', '도와줘 ', '도와주세요 ', '살려줘 ', '살려주세요 ']
+    img_list = ['thankyou.JPG', 'sorry.JPG', 'watchout.JPG', 'plz.JPG', 'warning.JPG']
+    print(voice)
+
+    if voice in hotwords_1 :
+        display(img_list[0])
+        break
+    elif voice in hotwords_2:
+        display(img_list[1])
+        break
+    elif voice in hotwords_3:
+        display(img_list[2])
+        break
+    elif voice in hotwords_4:
+        display(img_list[3])
+        break
+    elif voice in hotwords_5:
+        display(img_list[4])
         break
     else:
-        print(f"{voice}과(와) 관련된 자료를 찾을 수 없습니다. ")
+        print(f"{voice}는 등록되어 있는 단축어가 아닙니다.")
