@@ -50,8 +50,8 @@ def display_gif(img_name):
     root = Tk()
 
     #frame
-    frameCnt = 2
-    frames = [PhotoImage(file='/home/hanvit/Carmmunication/source/{img_name}.gif',format = 'gif -index %i' %(i)) for i in range(frameCnt)]
+    frameCnt = 15
+    frames = [PhotoImage(file=f'/home/hanvit/Carmmunication/source/{img_name}',format = 'gif -index %i' %(i)) for i in range(frameCnt)]
 
     def update(ind):
         frame = frames[ind]
@@ -59,7 +59,7 @@ def display_gif(img_name):
         if ind == frameCnt:
             ind = 0
         label.configure(image=frame)
-        root.after(100, update, ind)
+        root.after(500, update, ind)
 
     # fullscreen
     # F11: fullscreen toggle, Esc : exit fullscreen mode 
@@ -82,6 +82,7 @@ def display_gif(img_name):
 
     return root.mainloop()
 
+#### main 
 while True:
     print("음성인식을 시작합니다.")
 
@@ -94,7 +95,7 @@ while True:
     hotwords_5 = ['갈게요 ','양보 '] # 먼저 갈게요 ~
     hotwords_6 = ['차선 변경 ','차선 '] #차선 변경 
     hotwords_7 = ['비상 ', '응급 ', '응급 상황 ', '도와줘 ', '도와 주세요 ', '살려줘 ', '살려 주세요 '] # 응급상황
-    img_list = ['thankyou.gif', 'sorry.gif', 'warning.gif', 'youfirst.gif', 'mefirst.gif','lanechange.gif','emergency.gif']
+    img_list = ['1.gif', 'sorry.gif', 'warning.gif', 'youfirst.gif', 'mefirst.gif','lanechange.gif','emergency.gif']
     print(voice)
 
     if voice in hotwords_1 :
