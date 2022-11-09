@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 import speech_recognition as sr
-from PIL import Image
+from PIL import Image, ImageSequence
 import pyautogui 
 from time import sleep
 ## import os
@@ -47,7 +47,13 @@ def display(img_name):
     pyautogui.press('esc', presses=2, interval=0.5)
 
 def display_gif(img_name):
-    root = Tk()
+    im = Image.open(f'/home/hanvit/Carmmunication/source/{img_name}')
+    index = 1
+    for frame in ImageSequence.Iterator(im):
+        frame.save("frame%d.png" % index)
+        index += 1
+    '''
+     root = Tk()
 
     #frame
     frameCnt = 15
@@ -81,6 +87,8 @@ def display_gif(img_name):
     root.configure(bg='black')
 
     return root.mainloop()
+    '''
+   
 
 #### main 
 while True:
