@@ -40,7 +40,7 @@ def display(img_name):
     ## os.system(f"xdg-open /home/hanvit/Carmmunication/source/{img_name}")
     pyautogui.press('f11', presses=2, interval=0.5)
     sleep(10)
-    pyautogui.press('esc')
+    pyautogui.press('esc', presses=2, interval=0.5)
 
 while True:
     print("음성인식을 시작합니다.")
@@ -54,7 +54,7 @@ while True:
     hotwords_5 = ['갈게요 ','양보 '] # 먼저 갈게요 ~
     hotwords_6 = ['차선 변경 ','차선 '] #차선 변경 
     hotwords_7 = ['비상 ', '응급 ', '응급 상황 ', '도와줘 ', '도와 주세요 ', '살려줘 ', '살려 주세요 '] # 응급상황
-    img_list = ['thankyou.JPG', 'sorry.JPG', 'watchout.JPG', 'plz.JPG', 'warning.JPG']
+    img_list = ['thankyou.gif', 'sorry.gif', 'warning.gif', 'youfirst.gif', 'mefirst.gif','lanechange.gif','emergency.gif']
     print(voice)
 
     if voice in hotwords_1 :
@@ -71,6 +71,12 @@ while True:
         break
     elif voice in hotwords_5:
         display(img_list[4])
+        break
+    elif voice in hotwords_6:
+        display(img_list[5])
+        break
+    elif voice in hotwords_7:
+        display(img_list[6])
         break
     else:
         print(f"{voice}는 등록되어 있는 단축어가 아닙니다.")
