@@ -34,7 +34,8 @@ def read_voice():
 
 def display(img_name):
     im = Image.open(f'/home/hanvit/Carmmunication/source/{img_name}')
-    return im.show()
+    im.show()
+    return pyautogui.press('f11')
 
 while True:
     print("음성인식을 시작합니다.")
@@ -53,23 +54,18 @@ while True:
 
     if voice in hotwords_1 :
         display(img_list[0])
-        pyautogui.press('f11')
         break
     elif voice in hotwords_2:
         display(img_list[1])
-        pyautogui.press('f11')
         break
     elif voice in hotwords_3:
         display(img_list[2])
-        pyautogui.press('f11')
         break
     elif voice in hotwords_4:
         display(img_list[3])
-        pyautogui.press('f11')
         break
     elif voice in hotwords_5:
         display(img_list[4])
-        pyautogui.press('f11')
         break
     else:
         print(f"{voice}는 등록되어 있는 단축어가 아닙니다.")
