@@ -2,7 +2,8 @@
 import speech_recognition as sr
 from PIL import Image
 import pyautogui 
-import os
+from time import sleep
+## import os
 
 JSON = '''
     {
@@ -34,10 +35,12 @@ def read_voice():
             return print("구글 오류 : {}".format(re))
 
 def display(img_name):
-    ## im = Image.open(f'/home/hanvit/Carmmunication/source/{img_name}')
-    ## im.show()
-    os.system(f"xdg-open /home/hanvit/Carmmunication/source/{img_name}")
-    return pyautogui.press('f11')
+    im = Image.open(f'/home/hanvit/Carmmunication/source/{img_name}')
+    im.show()
+    ## os.system(f"xdg-open /home/hanvit/Carmmunication/source/{img_name}")
+    pyautogui.press('f11', presses=2, interval=0.5)
+    sleep(10)
+    pyautogui.press('esc')
 
 while True:
     print("음성인식을 시작합니다.")
