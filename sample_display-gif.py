@@ -1,14 +1,9 @@
 #-*- coding:utf-8 -*-
 import speech_recognition as sr
-from PIL import Image, ImageSequence
+import cv2
+import numpy as np
 import pyautogui 
 from time import sleep
-## import os
-import sys
-if sys.version_info[0] == 2:  # Just checking your Python version to import Tkinter properly.
-    from Tkinter import *
-else:
-    from tkinter import *
 
 JSON = '''
     {
@@ -39,57 +34,22 @@ def read_voice():
             return print("구글 오류 : {}".format(re))
 
 def display(img_name):
-    im = Image.open(f'/home/hanvit/Carmmunication/source/{img_name}')
-    im.show()
-    ## os.system(f"xdg-open /home/hanvit/Carmmunication/source/{img_name}")
+    imgPath = f'D:/STT practice/source/{img_name}'
+    capture = cv2.VideoCapture(imgPath)
+
+    while cv2.waitKey(33) < 0:
+        if capture.get(cv2.CAP_PROP_POS_FRAMES) == capture.get(cv2.CAP_PROP_FRAME_COUNT):
+            capture.set(cv2.CAP_PROP_POS_FRAMES, 0)
+
+        ret, frame = capture.read()
+        cv2.imshow("VideoFrame", frame)
+
+    capture.release()
+    cv2.destroyAllWindows()
     pyautogui.press('f11', presses=2, interval=0.5)
     sleep(10)
     pyautogui.press('esc', presses=2, interval=0.5)
-
-def display_gif(img_name):
-    im = Image.open(f'/home/hanvit/Carmmunication/source/{img_name}')
-    index = 1
-    for frame in ImageSequence.Iterator(im):
-        frame.save("frame%d.png" % index)
-        index += 1
-    '''
-     root = Tk()
-
-    #frame
-    frameCnt = 15
-    frames = [PhotoImage(file=f'/home/hanvit/Carmmunication/source/{img_name}',format = 'gif -index %i' %(i)) for i in range(frameCnt)]
-
-    def update(ind):
-        frame = frames[ind]
-        ind += 1
-        if ind == frameCnt:
-            ind = 0
-        label.configure(image=frame)
-        root.after(500, update, ind)
-
-    # fullscreen
-    # F11: fullscreen toggle, Esc : exit fullscreen mode 
-    root.attributes("-fullscreen", True)
-    root.bind("<F11>", lambda event: root.attributes("-fullscreen",
-                                        not root.attributes("-fullscreen")))
-    root.bind("<Escape>", lambda event: root.attributes("-fullscreen", False))
-
-    #window center position
-    positionRight = root.winfo_screenwidth()/2 
-    positionDown = root.winfo_screenheight()/2
-
-    #set image
-    label = Label(root, bg='black')
-    label.place(x=positionRight,y=positionDown,anchor=CENTER)
-    root.after(0, update, 0)
-
-    #background color
-    root.configure(bg='black')
-
-    return root.mainloop()
-    '''
-   
-
+     
 #### main 
 while True:
     print("음성인식을 시작합니다.")
@@ -103,11 +63,11 @@ while True:
     hotwords_5 = ['갈게요 ','양보 '] # 먼저 갈게요 ~
     hotwords_6 = ['차선 변경 ','차선 '] #차선 변경 
     hotwords_7 = ['비상 ', '응급 ', '응급 상황 ', '도와줘 ', '도와 주세요 ', '살려줘 ', '살려 주세요 '] # 응급상황
-    img_list = ['1.gif', 'sorry.gif', 'warning.gif', 'youfirst.gif', 'mefirst.gif','lanechange.gif','emergency.gif']
+    img_list = ['thankyou.gif', 'sorry.gif', 'warning.gif', 'youfirst.gif', 'mefirst.gif','lanechange.gif','emergency.gif']
     print(voice)
 
     if voice in hotwords_1 :
-        display_gif(img_list[0])
+        display(img_list[0])
         break
     elif voice in hotwords_2:
         display(img_list[1])
