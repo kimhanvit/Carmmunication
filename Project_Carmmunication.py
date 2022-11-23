@@ -2,8 +2,6 @@
 import speech_recognition as sr
 import cv2
 import numpy as np
-import pyautogui 
-from time import sleep
 
 JSON = '''
     {
@@ -39,21 +37,19 @@ def display(img_name):
     cv2.namedWindow("Carmmunication", cv2.WINDOW_NORMAL)
     cv2.setWindowProperty('Carmmunication', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
     
-    while cv2.waitKey(1000) == 0: 
+    count = 0
+    while cv2.waitKey(33) < 0: 
         if capture.get(cv2.CAP_PROP_POS_FRAMES) == capture.get(cv2.CAP_PROP_FRAME_COUNT):
             capture.set(cv2.CAP_PROP_POS_FRAMES, 0)
         ret, frame = capture.read()
         cv2.imshow('Carmmunication', frame)
-          
+        count += 1
+        print(count)
+        if count == 90:
+            break    
     capture.release()
     cv2.destroyAllWindows()
     
-    #sleep(10)   
-    #pyautogui.press('f11', presses=2, interval=0.5)
-    #pyautogui.press('esc', presses=2, interval=0.5)
-
-    
-
 #### main 
 while True:
     print("음성인식을 시작합니다.")
