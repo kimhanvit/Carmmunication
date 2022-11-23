@@ -36,20 +36,24 @@ def read_voice():
 def display(img_name):
     imgPath = f'D:/STT practice/source/{img_name}'
     capture = cv2.VideoCapture(imgPath)
-
-    while cv2.waitKey(33) < 0:
+    cv2.namedWindow("Carmmunication", cv2.WINDOW_NORMAL)
+    cv2.setWindowProperty('Carmmunication', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+    
+    while cv2.waitKey(1000) == 0: 
         if capture.get(cv2.CAP_PROP_POS_FRAMES) == capture.get(cv2.CAP_PROP_FRAME_COUNT):
             capture.set(cv2.CAP_PROP_POS_FRAMES, 0)
-
         ret, frame = capture.read()
-        cv2.imshow("VideoFrame", frame)
-
+        cv2.imshow('Carmmunication', frame)
+          
     capture.release()
     cv2.destroyAllWindows()
-    pyautogui.press('f11', presses=2, interval=0.5)
-    sleep(10)
-    pyautogui.press('esc', presses=2, interval=0.5)
-     
+    
+    #sleep(10)   
+    #pyautogui.press('f11', presses=2, interval=0.5)
+    #pyautogui.press('esc', presses=2, interval=0.5)
+
+    
+
 #### main 
 while True:
     print("음성인식을 시작합니다.")
@@ -68,24 +72,18 @@ while True:
 
     if voice in hotwords_1 :
         display(img_list[0])
-        break
     elif voice in hotwords_2:
         display(img_list[1])
-        break
+        
     elif voice in hotwords_3:
         display(img_list[2])
-        break
     elif voice in hotwords_4:
         display(img_list[3])
-        break
     elif voice in hotwords_5:
         display(img_list[4])
-        break
     elif voice in hotwords_6:
         display(img_list[5])
-        break
     elif voice in hotwords_7:
         display(img_list[6])
-        break
     else:
         print(f"{voice}는 등록되어 있는 단축어가 아닙니다.")
